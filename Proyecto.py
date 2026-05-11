@@ -60,8 +60,10 @@ characters = {
     }
 }
 
+# Functions
+
 def add_omori(characters, name):
-    input_name = input("Enter the character's name: ")
+    input_name = input("Enter the character's name:")
     input_health = int(input("Enter the character's health: "))
     input_juice = int(input("Enter the character's juice: "))
     input_attack = int(input("Enter the character's attack: "))
@@ -85,7 +87,9 @@ def add_omori(characters, name):
 
     return characters
 def search_omori(characters):
-    input_name = input("Enter the character's name to search: ")
+    input_name = input("Enter the character's name to search (or type 'exit' to cancel): ")
+    if input_name.lower() == "exit":
+        return characters
     if input_name.lower() in characters:
         character = characters[input_name.lower()]
         print("")
@@ -189,7 +193,7 @@ def character_with_highest_stat(characters, stat):
     print("2. Juice")
     print("3. Level")
     print("4. Attack")
-    print("5. Type")
+    print("5. Return to menu")
     stat_choice = input("Select an option: ")
 
     if stat_choice == "1":
@@ -201,7 +205,7 @@ def character_with_highest_stat(characters, stat):
     elif stat_choice == "4":
         stat = "attack"
     elif stat_choice == "5":
-        stat = "type"
+        return
     else:
         print("Opción no válida.")
         return
@@ -225,6 +229,8 @@ def character_with_highest_stat(characters, stat):
     else:
         print("No characters found.")
 
+# Main program
+
 op = 99
 
 while op != 0:
@@ -233,16 +239,19 @@ while op != 0:
     print("2. Search character")
     print("3. List characters (ALL)")
     print("4. Search character (filter by stats)")
-    print("5. Remove character")
-    print("6. Show character stats")
-    print("7. Modify character stats")
+    print("5. Character with the highest stat")
+    print("6. Remove character")
+    print("7. Show character stats")
+    print("8. Modify character stats")
     print("0. Exit")
     print("====================================")
 
     op = int(input("Enter an option: "))
 
     if op == 1:
-        name = input("Enter the character's variable name: ")
+        name = input("Enter the character's variable name (or type 'exit' to cancel): ")
+        if name.lower() == "exit":
+            continue
         characters = add_omori(characters, name.lower())
     elif op == 2:
         characters = search_omori(characters)
@@ -254,14 +263,17 @@ while op != 0:
         characters = filter_omori(characters)
         input("Press 'Enter' to continue...")
     elif op == 5:
+        character_with_highest_stat(characters, None)
+        input("Press 'Enter' to continue...")
+    elif op == 6:
         name = input("Enter the name of the character to remove: ")
         characters = remove_omori(characters, name.lower())
         input("Press 'Enter' to continue...")
-    elif op == 6:
+    elif op == 7:
         name = input("Enter the name of the character to show stats: ")
         show_stats(characters, name.lower())
         input("Press 'Enter' to continue...")
-    elif op == 7:
+    elif op == 8:
         name = input("Enter the name of the character to modify stats: ")
         modify_stats(characters, name.lower())
         input("Press 'Enter' to continue...")
